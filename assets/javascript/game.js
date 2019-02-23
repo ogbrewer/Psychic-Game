@@ -1,58 +1,38 @@
-var userText = document.getElementById("userChoice");
-      var computerText = document.getElementById("computerChoice");
       var winsTally = document.getElementById("wins");
       var lossesTally = document.getElementById("losses");
-      var tiesTally = document.getElementById("ties");
-  
-  
-      // Creates an array that lists out all of the options (Rock, Paper, or Scissors).
-      var computerChoices = ["r", "p", "s"];
+      var guessesLeft = document.getElementById("guessesleft");
+      var guessesSofar = document.getElementById("guessesSofar");
+      var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "r", "p", "s"];
       
   
-      // This function is run whenever the user presses a key.
       document.onkeyup = function(event) {
-  
-        // Determines which key was pressed.
-        var userGuess = event.key;
-        userText.textContent = event.key;
-  
-        // Randomly chooses a choice from the options array. This is the Computer's guess.
+  if (guessesLeft.textContent>0) {
+        var playerGuess = event.key;
+        
       
         var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        computerText.textContent = computerGuess;
   
-        // Alerts the key the user pressed (userGuess).
-        alert("User guess: " + userGuess);
-  
-        // Alerts the Computer's guess.
-        alert("Computer guess: " + computerGuess);
-  
-        // Wins
-        if (userGuess === "p" && computerGuess === "r") {
+        
+        if (playerGuess === computerGuess) {
           winsTally.textContent++;
+          guessesLeft.textContent=9;
+          guessesSofar.textContent=null;
+          alert("right! You win");
         }
   
-        else if (userGuess === "p" && computerGuess === "s") {
-          lossesTally.textContent++;
+        else {
+          guessesLeft.textContent--;
+           alert("Wrong");
+          document.getElementById("guessesSofar").innerHTML =document.getElementById("guessesSofar").innerHTML +playerGuess;
+
+         
         }
   
-        else if (userGuess === "r" && computerGuess === "p") {
-          lossesTally.textContent++;
-        }
-  
-        else if (userGuess === "r" && computerGuess === "s") {
-          winsTally.textContent++;
-        }
-  
-        else if (userGuess === "s" && computerGuess === "r") {
-          lossesTally.textContent++;
-        }
-  
-        else if (userGuess === "s" && computerGuess === "p") {
-          winsTally.textContent++;
-        }
-  
-        else if (userGuess === computerGuess) {
-          tiesTally.textContent++;
-        }
-      };
+      }
+      else {
+        alert ("you lose");
+        lossesTally.textContent++;
+        guessesLeft.textContent=9;
+        guessesSofar.textContent=null;
+      }
+    };
